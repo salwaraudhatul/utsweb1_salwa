@@ -1,0 +1,21 @@
+<?php
+session_start();
+
+// cek apakah sudah login
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Selamat Datang, <?php echo $_SESSION['username']; ?>!</h2>
+    <p>Anda berhasil login ke halaman dashboard.</p>
+    <a href="logout.php">Logout</a>
+</body>
+</html>
