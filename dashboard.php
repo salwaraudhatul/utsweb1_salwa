@@ -11,7 +11,19 @@ if (!isset($_SESSION['username'])) {
 $kode_barang = ["K001", "K002", "K003", "K004", "K005"];
 $nama_barang = ["Nasi Goreng", "Air Mineral", "Teh Kotak", "Coca-Cola", "Ayam Goreng"];
 $harga_barang = [10000, 3000, 5000, 6000, 7000];
+
+// Tambahan dari commit 5
+$beli = [];
+$total = [];
+
+// Buat pembelian acak untuk setiap barang
+for ($i = 0; $i < count($kode_barang); $i++) {
+    $jumlah_beli = rand(1, 5); // random 1–5
+    $beli[] = $jumlah_beli;
+    $total[] = $harga_barang[$i] * $jumlah_beli;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -54,21 +66,27 @@ $harga_barang = [10000, 3000, 5000, 6000, 7000];
     <h3 style="text-align:center;">Daftar pembelian dibuat secara acak tiap kali halaman dimuat<?php echo $_SESSION['username']; ?>!</h3>
 
     <table>
-        <tr>
-            <th>Kode Barang</th>
-            <th>Nama Barang</th>
-            <th>Harga (Rp)</th>
-        </tr>
-
-        <?php for ($i = 0; $i < count($kode_barang); $i++) { ?>
-            <tr>
-                <td><?php echo $kode_barang[$i]; ?></td>
-                <td><?php echo $nama_barang[$i]; ?></td>
-                <td><?php echo number_format($harga_barang[$i], 0, ',', '.'); ?></td>
-            </tr>
-        <?php } ?>
-    </table>
-
+    <tr><th colspan="5">-- POLGAN MART --</th></tr>
+    <tr>
+        <th>Kode</th>
+        <th>Nama Barang</th>
+        <th>Harga</th>
+        <th>Jumlah</th>
+        <th>Total</th>
+    </tr>
+    <?php
+    for ($i = 0; $i < count($kode_barang); $i++) {
+        echo "<tr>
+                <td>{$kode_barang[$i]}</td>
+                <td>{$nama_barang[$i]}</td>
+                <td>Rp " . number_format($harga_barang[$i], 0, ',', '.') . "</td>
+                <td>{$beli[$i]}</td>
+                <td>Rp " . number_format($total[$i], 0, ',', '.') . "</td>
+              </tr>";
+    }
+    ?>
+</table>
+            
  
 </body>
 </html>
